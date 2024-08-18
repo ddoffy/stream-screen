@@ -29,5 +29,9 @@ def stream():
     return Response(capture_screen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/health')
+def healthy():
+    return 'Healthy'
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
