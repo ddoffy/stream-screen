@@ -15,6 +15,7 @@
         const img = document.getElementById('stream');
 
         socket.on('frame', function(data) {
+            console.log('Frame received');
             const blob = new Blob([data], {type: 'image/jpeg'});
             const url = URL.createObjectURL(blob);
             img.src = url;

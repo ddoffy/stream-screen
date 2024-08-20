@@ -26,7 +26,6 @@ with mss.mss() as sct:
         img_length = len(img_bytes)
         # Send the image in CHUNK_SIZE img_bytes over the socket
         for i in range(0, img_length, CHUNK_SIZE):
-            print('send chunk', i)
             chunk = img_bytes[i:i + CHUNK_SIZE]
             sock.sendto(chunk, server_address)
 

@@ -3,9 +3,12 @@ import socket
 import numpy as np
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
+from flask_cors import CORS
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+CORS(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
+
 
 udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 udp_socket.bind(('0.0.0.0', 9999))
@@ -39,6 +42,7 @@ def udp_to_websocket():
                 # Encode image to JPEG and send over WebSocket
                 _, jpeg_img = cv2.imencode('.jpg', img)
                 socketio.emit('frame', jpeg_img.tobytes())
+                print('Frame sent')
                 buffer = b''  # Clear buffer after successful display
         except cv2.error:
             pass  # Continue receiving chunks
